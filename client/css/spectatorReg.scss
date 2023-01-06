@@ -1,0 +1,23 @@
+@import url('https://fonts.cdnfonts.com/css/futuremillennium');
+
+$main-color: #0389E0;
+
+body{padding: 0; margin: 0; left: 0; top: 0; background: rgb(34, 34, 34);}
+.title{width: 100%; display: flex; justify-content: center; height: 40vh;
+    h1{font-family: 'FutureMillennium', sans-serif; color: #fff; font-size: 100px; z-index: 100; text-shadow: 10px 10px 5px #000; text-align: center; margin-top: 100px;}
+    img{position: absolute; width: 50vh; height: 45vh; z-index: 5;}
+}
+
+.line{width: 50%; height: 5px; background: $main-color;}
+
+#teamList{width: 100%; display: flex; justify-content: center;
+    .waiting{font-family: 'FutureMillennium', sans-serif; color: #fff;}
+    .team{padding: 20px; margin-left: 15px; margin-right:15px; width: 120px;
+        .title{font-size: 25px;}
+        .player{font-size: 17px;}
+        .under{background: $main-color; width: 100%; height: 3px;}
+        .logo{background:$main-color; border-radius: 50vh;}
+    }
+    .team:hover{border: 2px solid #fff; cursor: pointer;}
+    .team.selected{border: 2px solid rgb(151, 151, 151); cursor: pointer;}
+}

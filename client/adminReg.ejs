@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/client/css/adminReg.css">
+    <title>Čichalov 2022 | Admin</title>
+
+    <script src="https://kit.fontawesome.com/9e581aa109.js" crossorigin="anonymous"></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+   <div class="form-registration">
+         <form id="reg" method="POST" action="/registerTeam">
+            <label for="teamName">Jméno týmu:</label>
+            <input type="text" name="teamName">
+            <label for="playerOneName">Jméno prvního hráče:</label>
+            <input type="text" name="playerOneName">
+            <label for="playerTwoName">Jméno druhého hráče:</label>
+            <input type="text" name="playerTwoName">
+            <button id="regTeams" type="submit">REGISTROVAT TÝM</button>
+         </form>
+         <form id="sendAllReg" method="POST" action="/adminPanel">
+            <button id="sendAllReg" type="submit">MÁM HOTOVO</button>
+         </form>
+
+   </div>
+   <hr>
+
+   <h1 id="teamsCount"></h1>
+   <div id="registeredTeams"></div>
+
+   <div id="settingsPanel">
+      <button id="remove" onclick="deleteTeam()"><i class="fa-solid fa-trash"></i></button>
+      <button id="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+      <button id="done" onclick="unSelectTeam()"><i class="fa-solid fa-check"></i></button>
+   </div>
+</body>
+
+<script>
+   var registeredTeams = document.getElementById("registeredTeams");
+   var settingsPanel = document.getElementById("settingsPanel");
+   var team = document.getElementsByClassName("team");
+   var teamsCount = document.getElementById("teamsCount");
+
+   var socket = io();
+   
+   //settingsVar------------------------------------------
+   var teamSelectedId;
+   var settingsEnabled = false;
+   //-----------------------------------------------------
+
+   socket.on('teamsData', function(data){
+      registeredTeams.innerHTML = "";
+       for(var i = 0; i < data.length; i++){
+          registeredTeams.innerHTML = registeredTeams.innerHTML + "<div class='team' onclick='teamSelected(" + i + ")'><div class='logo'><h1>" + (data[i].teamName[0]).toUpperCase() + "</h1></div><h1 class='title'>" + data[i].teamName + "</h1><div class='under'></div><div class='players'><h2 class='player'>" + data[i].playerOneName + "</h2><h2 class='player'>" + data[i].playerTwoName + "</h2></div></div>";
+       }
+   });
+
+   //settings---------------------------------------------
+      function teamSelected(id){
+         teamSelected = id;
+         settingsEnabled = true;
+
+         settingsPanel.classList.add("enable");
+         team[teamSelected].classList.add("selected");
+      }
+
+      function unSelectTeam(){
+         if(settingsEnabled){
+            location.reload();
+         }  
+      }
+
+      function deleteTeam(){
+         if(settingsEnabled){
+            socket.emit('removeTeam', teamSelected);
+            location.reload();
+         } 
+      }
+   //teamsCount--------------------------------------------
+   
+   socket.on('teamsCount', function(data){
+      teamsCount.textContent = data + " týmů";
+   });
+   
+</script>
+</html>

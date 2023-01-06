@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/client/css/spectatorReg.css">
+    <title>Čichalov 2022 | Spectator</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+   <div class="title">
+      <h1>ČICHALOV 2023</h1>
+      <img src="/client/assets/background.png">
+   </div>
+
+   <div id="teamList">
+      <h1 class="waiting">Čekání na přidání týmů...</h1>
+   </div>
+</body>
+
+<script>
+   var teamList = document.getElementById("teamList");
+
+   var socket = io();
+
+   var dataPrev;
+
+   var reloadedFirst = false;
+
+   socket.on('teamReg', function(data){
+      teamList.innerHTML = "";
+        for(var i = 0; i < data.length; i++){
+            teamList.innerHTML = teamList.innerHTML + "<div class='team'><div class='logo'><h1>" + (data[i].teamName[0]).toUpperCase() + "</h1></div><h1 class='title'>" + data[i].teamName + "</h1><div class='under'></div><div class='players'><h2 class='player'>" + data[i].playerOneName + "</h2><h2 class='player'>" + data[i].playerTwoName + "</h2></div></div>";
+        }
+   });
+
+</script>
+</html>

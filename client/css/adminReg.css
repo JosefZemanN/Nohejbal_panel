@@ -1,0 +1,110 @@
+body {
+  padding: 0;
+  margin: 0;
+  left: 0;
+  top: 0;
+  background: rgb(34, 34, 34);
+}
+
+.form-registration {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+.form-registration form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  font-size: 25px;
+}
+.form-registration label {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.form-registration input {
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 25px;
+  font-size: 25px;
+  border-radius: 20px;
+}
+.form-registration button {
+  padding: 10px;
+  background: #0389E0;
+  color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+#registeredTeams {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  color: #fff;
+  margin-bottom: 50px;
+}
+#registeredTeams .team {
+  padding: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 120px;
+}
+#registeredTeams .team .title {
+  font-size: 25px;
+}
+#registeredTeams .team .player {
+  font-size: 17px;
+}
+#registeredTeams .team .under {
+  background: #0389E0;
+  width: 100%;
+  height: 3px;
+}
+#registeredTeams .team .logo {
+  background: #0389E0;
+  border-radius: 50vh;
+}
+#registeredTeams .team:hover {
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+#registeredTeams .team.selected {
+  border: 2px solid rgb(151, 151, 151);
+  cursor: pointer;
+}
+
+#settingsPanel {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+#settingsPanel button {
+  padding: 15px;
+  font-size: 25px;
+  cursor: pointer;
+  background: #004370;
+  margin: 0;
+  border: none;
+  color: rgb(168, 168, 168);
+}
+
+#settingsPanel.enable {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+#settingsPanel.enable button {
+  padding: 15px;
+  font-size: 25px;
+  cursor: pointer;
+  background: #0389E0;
+  margin: 0;
+  border: none;
+  color: #fff;
+}/*# sourceMappingURL=adminReg.css.map */

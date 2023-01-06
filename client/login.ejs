@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/client/css/login.css">
+    <title>Čichalov 2022 | Login</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <div class="form-login">
+   <form method="POST" action="/panel">
+     <label for="username">Uživatelské jméno:</label>
+        <input type="text" id="username" name="username" required>
+     <label for="username">Heslo:</label>
+        <input type="password" id="password" name="password">
+     <h1 id="error"><%= error %></h1>
+     <button type="submit">PŘIHLÁSIT SE</button>
+   </form>
+  </div>
+ 
+</body>
+
+<script>
+</script>
+</html>
