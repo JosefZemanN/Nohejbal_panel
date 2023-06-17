@@ -46,7 +46,7 @@ app.get('/', function(req, res) {
 
 app.use('/client', express.static(__dirname + '/client'));
 
-server.listen(port, ipAdress);
+server.listen(port);
 console.log("Server started.. IP: " + ipAdress + ":" + port);
 
 function generateMatchesList(numTeams) {
