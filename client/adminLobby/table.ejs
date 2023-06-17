@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/client/css/adminLobby.css">
+    <title>Čichalov 2022 | Admin</title>
+
+    <script src="https://kit.fontawesome.com/9e581aa109.js" crossorigin="anonymous"></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+   <div class="matchesTable">
+      <table id="table"></table>
+    </div>
+</body>
+
+<script>
+    var socket = io();
+
+    var table = document.getElementById("table");
+
+    socket.on('teamsReg', function(data){
+      //table--------------------------------------
+      table.innerHTML = "";
+      list.innerHTML = "";
+
+            for(var i = 0; i <= data.length; i++){
+
+               table.innerHTML = table.innerHTML + "<tr id='tr" + i + "'></tr>";
+
+                  for(var j = 0; j <= data.length; j++){
+                        document.getElementById("tr" + i).innerHTML = document.getElementById("tr" + i).innerHTML + "<td id='td"+ i + j +"'></td>";
+                  }
+                  
+                  
+               if(i == 0){
+                document.getElementById("td00").innerHTML = "";
+               } else {
+                document.getElementById("td0" + i).innerHTML = data[i-1].teamName;
+               }
+
+               if(i == 0){
+                document.getElementById("td00").innerHTML = "";
+               } else {
+                document.getElementById("td" + i + "0").innerHTML = data[i-1].teamName;
+               }
+            }
+              
+       
+       //------------------------------------------------
+              
+    });
+</script>
+</html>

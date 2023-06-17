@@ -1,0 +1,53 @@
+@import url('https://fonts.cdnfonts.com/css/futuremillennium');
+
+$main-color: #0389E0;
+
+body{padding: 0; margin: 0; left: 0; top: 0; background: rgb(34, 34, 34);}
+
+.row{display: flex; justify-content: space-between;
+    .sec{width: calc(100% / 3);
+        .title-sec{text-align: center; color: #fff;}
+    }
+}
+.title{width: 100%; display: flex; justify-content: center; height: 30vh;
+    h1{font-family: 'FutureMillennium', sans-serif; color: #fff; font-size: 70px; z-index: 100; text-shadow: 10px 10px 5px #000; text-align: center; margin-top: 100px;}
+    img{position: absolute; width: 40vh; height: 35vh; z-index: 5;}
+}
+
+#teamList{width: 100%; display: flex; flex-direction: row; flex-wrap: wrap;
+    .team{padding: 20px; margin-left: 15px; margin-right:15px; width: 120px; color: #fff; text-align: center;
+        .titleTeam{font-size: 25px;}
+        .player{font-size: 17px;}
+        .under{background: $main-color; width: 100%; height: 3px;}
+        .logo{background:$main-color; border-radius: 50vh;}
+    }
+}
+
+@keyframes move-right{
+    0%{opacity: 0; transform: translateX(-200px);}
+    100%{opacity: 1; transform: translateX(0px);}
+}
+
+@keyframes move-left{
+    0%{opacity: 0; transform: translateX(200px);}
+    100%{opacity: 1; transform: translateX(0px);}
+}
+
+@keyframes move-up{ 
+    0%{opacity: 0; transform: translateY(200px);}
+    100%{opacity: 1; transform: translateY(0px);}
+}
+
+@keyframes move-down{
+    0%{opacity: 0; transform: translateY(-200px);}
+    100%{opacity: 1; transform: translateY(0px);}
+}
+
+
+@keyframes fade{
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+}
+
+/*COMPONENTS*/
+    #teamList{animation: move-up 0.5s ease-in forwards; animation-delay: 0; opacity: 1;}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/client/css/adminLobby.css">
+    <title>Čichalov 2022 | Admin</title>
+
+    <script src="https://kit.fontawesome.com/9e581aa109.js" crossorigin="anonymous"></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body onload="onReloadPage()">
+   <div class="nextMatch">
+      <div class="next active">
+         <div class="time-info">
+            <h3 id="time"></h3>
+         </div>
+         <div class="match-stats">
+            <h3 id="first-team">---</h3>
+            <h3 id="score">0:0</h3>
+            <h3 id="second-team">---</h3>
+         </div>
+         <div class="number">
+            <h3 id="number-round"></h3>
+         </div>
+         <div class="regulate-match">
+            <button class="start-button" onclick="startMatch()">START</button>
+         </div>
+      </div>
+      <div class="startedMatch">
+         <div class="time-info">
+            <h3 id="time"></h3>
+         </div>
+         <div class="match-stats">
+            <div class="team-regulate">
+               <h3 id="first-team-now">---</h3>
+               <div class="regulate-buttons">
+                  <button class="regulate-score-add" onclick='onRegulateScore(0, "+")'>+</button>
+                  <button class="regulate-score-remove" onclick='onRegulateScore(0, "-")'>-</button>
+               </div>
+            </div>
+            <h3 class="scoreGame"><span id="score-one"></span>:<span id="score-two"></span></h3> <!---------------------SCORE IN THE GAME!!!!----------------------->
+            <div class="team-regulate">
+               <h3 id="second-team-now">---</h3>
+               <div class="regulate-buttons">
+                  <button class="regulate-score-add" onclick='onRegulateScore(1, "+")'>+</button>
+                  <button class="regulate-score-remove" onclick='onRegulateScore(1, "-")'>-</button>
+               </div>
+            </div>
+         </div>
+         <div class="number">
+            <h3 id="number-round"></h3>
+         </div>
+      </div>
+   </div>
+   <div class="stats">
+         <div class="matchesTable">
+            <table id="table"></table>
+          </div>
+        <div class="teamsScore">
+          <div id="list"></div>
+        </div>
+   </div>
+</body>
+
+<script>
+   var socket = io();
+
+var table = document.getElementById("table");
+
+socket.on('teamsReg', function(data){
+  //table--------------------------------------
+  table.innerHTML = "";
+  list.innerHTML = "";
+
+        for(var i = 0; i <= data.length; i++){
+
+           table.innerHTML = table.innerHTML + "<tr id='tr" + i + "'></tr>";
+
+              for(var j = 0; j <= data.length; j++){
+                    document.getElementById("tr" + i).innerHTML = document.getElementById("tr" + i).innerHTML + "<td id='td"+ i + j +"'></td>";
+              }
+              
+              
+           if(i == 0){
+            document.getElementById("td00").innerHTML = "";
+           } else {
+            document.getElementById("td0" + i).innerHTML = data[i-1].teamName;
+           }
+
+           if(i == 0){
+            document.getElementById("td00").innerHTML = "";
+           } else {
+            document.getElementById("td" + i + "0").innerHTML = data[i-1].teamName;
+           }
+
+           document.getElementById("td" + i + i).classList.add('clean');
+        }
+          
+   
+       //------------------------------------------------
+       //teamScores--------------------------------------
+       for(var i = 0; i < data.length; i++){
+          list.innerHTML = list.innerHTML + "<div class='team'><h1 class='title'>" + data[i].teamName +"</h1><h2 class='score'>" + data[i].score +"</h2></div>";
+       }
+              
+       //--------------------------------------
+              
+    });
+
+   socket.on('matchNowTeams', function(data){
+         document.getElementById("first-team").innerText = data[0];
+         document.getElementById("second-team").innerText = data[1];
+
+         document.getElementById("first-team-now").innerText = data[0];
+         document.getElementById("second-team-now").innerText = data[1];
+   });
+
+   socket.on('matchNowInfo', function(data){
+      if(data[2] != null){
+         document.getElementById("score-one").innerHTML = data[2][0];
+         document.getElementById("score-two").innerHTML = data[2][1];
+      }
+      document.getElementById("number-round").innerText = data[0] + '. kolo z ' + data[1];
+
+   });
+
+   function startMatch(){
+      socket.emit('startMatch');
+   }
+
+   socket.on('changeMatchSec', function(data){
+      if(data === "game"){
+         document.querySelector(".next").classList.remove("active");
+         document.querySelector(".startedMatch").classList.add("active");
+      } else if(data === "lobby"){
+         document.querySelector(".next").classList.add("active");
+         document.querySelector(".startedMatch").classList.remove("active");
+      }
+   });
+
+   socket.on('writeMatchesScore', function(data){
+
+      let allMatches = data;
+
+      for(let i = 1; i < allMatches.length; i++){
+         if(allMatches[i].scores[0] != 0 || allMatches[i].scores[1] != 0){
+            document.getElementById("td" + allMatches[i].teams[0] + allMatches[i].teams[1]).innerHTML = allMatches[i].scores[0] > allMatches[i].scores[1] ? allMatches[i].scores[0] + ':' + allMatches[i].scores[1] : allMatches[i].scores[1] + ':' + allMatches[i].scores[0];
+            document.getElementById("td" + allMatches[i].teams[1] + allMatches[i].teams[0]).innerHTML = allMatches[i].scores[0] > allMatches[i].scores[1] ? allMatches[i].scores[0] + ':' + allMatches[i].scores[1] : allMatches[i].scores[1] + ':' + allMatches[i].scores[0];
+         }
+      }
+   });
+
+window.addEventListener('beforeunload', function(event) {
+  alert('Nereloadovat tuto stránku! Jinak se pokazí systém!');
+
+  event.returnValue = '';
+});
+
+function onRegulateScore(team, regulation){
+ 
+   let infoRegulation = [team, regulation];
+
+   socket.emit('regulateScore', infoRegulation);
+}
+
+function onReloadPage(){
+   socket.emit('reloadPage');
+}
+
+
+</script>
+</html>

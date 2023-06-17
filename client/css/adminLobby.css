@@ -1,0 +1,135 @@
+body {
+  padding: 0;
+  margin: 0;
+  left: 0;
+  top: 0;
+  background: rgb(34, 34, 34);
+  color: #fff;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.stats .matchesTable {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.stats .matchesTable table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin: 15px;
+}
+.stats .matchesTable table, .stats .matchesTable td, .stats .matchesTable tr {
+  font-size: 30px;
+  border: 1px solid #fff;
+  border-collapse: collapse;
+}
+.stats .matchesTable td {
+  padding: 10px;
+  width: 100px;
+}
+.stats .matchesTable .clean {
+  background: rgb(168, 168, 168);
+  border: 2px solid #fff;
+}
+.stats .teamsScore {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.stats .teamsScore #list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.stats .teamsScore #list .team {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.nextMatch {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 75px;
+  align-items: center;
+}
+.nextMatch .next {
+  display: none;
+}
+.nextMatch .next .match-stats {
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  justify-content: center;
+}
+.nextMatch .next .match-stats #first-team {
+  margin-right: 30px;
+  width: 100px;
+  text-align: center;
+}
+.nextMatch .next .match-stats #score {
+  color: #0389E0;
+  font-size: 20px;
+}
+.nextMatch .next .match-stats #second-team {
+  margin-left: 30px;
+  width: 100px;
+  text-align: center;
+}
+.nextMatch .next .regulate-match {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.nextMatch .next .regulate-match .start-button {
+  color: #fff;
+  background: #0389E0;
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.nextMatch .next .number {
+  display: flex;
+  justify-content: center;
+}
+.nextMatch .next.active {
+  display: block;
+}
+.nextMatch .startedMatch {
+  display: none;
+}
+.nextMatch .startedMatch .match-stats {
+  display: flex;
+}
+.nextMatch .startedMatch .match-stats #first-team-now {
+  margin-right: 30px;
+  width: 100px;
+  text-align: center;
+}
+.nextMatch .startedMatch .match-stats .scoreGame {
+  color: #0389E0;
+  font-size: 20px;
+}
+.nextMatch .startedMatch .match-stats #second-team-now {
+  margin-left: 30px;
+  width: 100px;
+  text-align: center;
+}
+.nextMatch .startedMatch .match-stats .team-regulate .regulate-buttons {
+  display: flex;
+  justify-content: center;
+}
+.nextMatch .startedMatch.active {
+  display: block;
+}/*# sourceMappingURL=adminLobby.css.map */

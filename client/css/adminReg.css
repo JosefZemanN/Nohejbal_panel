@@ -1,3 +1,11 @@
+button {
+  padding: 10px;
+  background: #0389E0;
+  color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -8,7 +16,8 @@ body {
 
 .form-registration {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 30px;
 }
 .form-registration form {
@@ -29,13 +38,6 @@ body {
   font-size: 25px;
   border-radius: 20px;
 }
-.form-registration button {
-  padding: 10px;
-  background: #0389E0;
-  color: #fff;
-  border-radius: 20px;
-  cursor: pointer;
-}
 
 #registeredTeams {
   display: flex;
@@ -43,7 +45,7 @@ body {
   text-align: center;
   flex-wrap: wrap;
   color: #fff;
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 #registeredTeams .team {
   padding: 20px;
@@ -73,6 +75,12 @@ body {
 #registeredTeams .team.selected {
   border: 2px solid rgb(151, 151, 151);
   cursor: pointer;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }
 
 #settingsPanel {
@@ -107,4 +115,29 @@ body {
   margin: 0;
   border: none;
   color: #fff;
+}
+
+#teamsCount {
+  color: #fff;
+  text-align: center;
+}
+
+#sendAllReg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  font-size: 25px;
+}
+#sendAllReg label {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 10px;
+}
+#sendAllReg input {
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 25px;
+  font-size: 25px;
+  border-radius: 20px;
 }/*# sourceMappingURL=adminReg.css.map */

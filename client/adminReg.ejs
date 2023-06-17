@@ -13,20 +13,27 @@
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-   <div class="form-registration">
-         <form id="reg" method="POST" action="/registerTeam">
-            <label for="teamName">Jméno týmu:</label>
-            <input type="text" name="teamName">
-            <label for="playerOneName">Jméno prvního hráče:</label>
-            <input type="text" name="playerOneName">
-            <label for="playerTwoName">Jméno druhého hráče:</label>
-            <input type="text" name="playerTwoName">
-            <button id="regTeams" type="submit">REGISTROVAT TÝM</button>
-         </form>
-         <form id="sendAllReg" method="POST" action="/adminPanel">
-            <button id="sendAllReg" type="submit">MÁM HOTOVO</button>
-         </form>
-
+      <div class="form-registration">
+            <h1>Týmová registrace</h1>
+            <form id="reg" method="POST" action="/registerTeam">
+               <label for="teamName">Jméno týmu:</label>
+               <input type="text" name="teamName">
+               <label for="playerOneName">Jméno prvního hráče:</label>
+               <input type="text" name="playerOneName">
+               <label for="playerTwoName">Jméno druhého hráče:</label>
+               <input type="text" name="playerTwoName">
+               <button id="regTeams" type="submit">REGISTROVAT TÝM</button>
+            </form>
+      </div>
+   <div class="submit">
+      <form id="sendAllReg" method="POST" action="/adminPanel">
+         <h1>Nastavení hry</h1>
+         <label for="max-bod">Max. počet bodů</label>
+         <input type="number" name="maxRoundsGame">
+         <label for="match-end-fast">Pokud hra je 0:6 tak konec zápasu?</label>
+         <input type="checkbox" name="match-end-fast" value="true">
+         <button id="sendAllRegB" type="submit">MÁM HOTOVO</button>
+      </form>
    </div>
    <hr>
 
@@ -53,7 +60,7 @@
    var settingsEnabled = false;
    //-----------------------------------------------------
 
-   socket.on('teamsData', function(data){
+   socket.on('teamsReg', function(data){
       registeredTeams.innerHTML = "";
        for(var i = 0; i < data.length; i++){
           registeredTeams.innerHTML = registeredTeams.innerHTML + "<div class='team' onclick='teamSelected(" + i + ")'><div class='logo'><h1>" + (data[i].teamName[0]).toUpperCase() + "</h1></div><h1 class='title'>" + data[i].teamName + "</h1><div class='under'></div><div class='players'><h2 class='player'>" + data[i].playerOneName + "</h2><h2 class='player'>" + data[i].playerTwoName + "</h2></div></div>";
