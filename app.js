@@ -17,7 +17,7 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-const ipAdress = "192.168.1.107";
+const ipAdress = "localhost";
 const port = 3000;
 
 var teamId = 0;
