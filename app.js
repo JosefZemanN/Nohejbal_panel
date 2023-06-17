@@ -63,7 +63,7 @@ function generateMatchesList(numTeams) {
     for (let round = 0; round < numRounds; round++) {
       for (let match = 0; match < matchesPerRound; match++) {
         const homeTeam = teams[match];
-        const awayTeam = teams[numTeams - 1 - match];
+        const awayTeam = teams[numTeams - 1 - match];//wefqwef
   
         schedule.push([homeTeam, awayTeam]);
       }
