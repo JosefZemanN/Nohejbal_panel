@@ -49,32 +49,31 @@ app.use('/client', express.static(__dirname + '/client'));
 server.listen(port);
 console.log("Server started.. IP: " + ipAdress + ":" + port);
 
-function generateMatches(numTeams) {
-    if (numTeams % 2 === 1) {
-      numTeams += 1; // Přidání jednoho "fantomového" týmu pro lichý počet týmů
+function generateMatchesList(numTeams) {
+    if (numTeams % 2 !== 0) {
+      numTeams++;
     }
   
-    const teamList = Array.from({ length: numTeams }, (_, i) => i + 1);
-    const half = numTeams / 2;
+    const teams = Array.from({ length: numTeams }, (v, i) => i + 1);
+    const numRounds = numTeams - 1;
+    const matchesPerRound = numTeams / 2;
   
     const schedule = [];
-    for (let round = 0; round < numTeams - 1; round++) {
-      const firstHalf = teamList.slice(0, half);
-      const secondHalf = teamList.slice(half).reverse();
   
-      const matches = [];
-      for (let i = 0; i < half; i++) {
-        matches.push([firstHalf[i], secondHalf[i]]);
+    for (let round = 0; round < numRounds; round++) {
+      for (let match = 0; match < matchesPerRound; match++) {
+        const homeTeam = teams[match];
+        const awayTeam = teams[numTeams - 1 - match];
+  
+        schedule.push([homeTeam, awayTeam]);
       }
-      schedule.push(matches);
   
-      // Rotace týmů (kromě prvního týmu)
-      teamList.splice(1, 0, teamList.pop());
+      teams.splice(1, 0, teams.pop());
     }
   
     return schedule;
   }
-
+  
 var Team = function(id, teamName, playerOneName, playerTwoName){
     
     var teamData = {
