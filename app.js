@@ -49,7 +49,7 @@ app.use('/client', express.static(__dirname + '/client'));
 server.listen(port);
 console.log("Server started.. IP: " + ipAdress + ":" + port);
 
-function generateMatchesList(numTeams) {
+function generateMatches(numTeams) {
     if (numTeams % 2 === 1) {
       numTeams += 1; // Přidání jednoho "fantomového" týmu pro lichý počet týmů
     }
