@@ -50,30 +50,26 @@ server.listen(port);
 console.log("Server started.. IP: " + ipAdress + ":" + port);
 
 function generateMatchesList(numTeams) {
+    if (numTeams % 2 === 1) {
+      numTeams += 1; // Přidání jednoho "fantomového" týmu pro lichý počet týmů
+    }
+  
     const teamList = Array.from({ length: numTeams }, (_, i) => i + 1);
-    const numMatches = (numTeams - 1) * 2;
-    const half = Math.floor(numTeams / 2);
+    const half = numTeams / 2;
   
     const schedule = [];
-    for (let match = 0; match < numMatches; match++) {
+    for (let round = 0; round < numTeams - 1; round++) {
+      const firstHalf = teamList.slice(0, half);
+      const secondHalf = teamList.slice(half).reverse();
+  
       const matches = [];
       for (let i = 0; i < half; i++) {
-        const homeTeam = teamList[i];
-        const awayTeam = teamList[numTeams - 1 - i];
-        matches.push([homeTeam, awayTeam]);
+        matches.push([firstHalf[i], secondHalf[i]]);
       }
       schedule.push(matches);
   
-      // Rotace týmů
+      // Rotace týmů (kromě prvního týmu)
       teamList.splice(1, 0, teamList.pop());
-    }
-  
-    // Zaměna druhé poloviny týmů pro sudá kola
-    for (let round = 1; round < schedule.length; round += 2) {
-      for (let match = 0; match < schedule[round].length; match++) {
-        const [homeTeam, awayTeam] = schedule[round][match];
-        schedule[round][match] = [awayTeam, homeTeam];
-      }
     }
   
     return schedule;
