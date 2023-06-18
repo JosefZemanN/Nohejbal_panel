@@ -50,29 +50,50 @@ server.listen(port);
 console.log("Server started.. IP: " + ipAdress + ":" + port);
 
 function generateMatchesList(numTeams) {
-    if (numTeams % 2 !== 0) {
-      numTeams++;
+    if(numTeams % 2 != 0){
+        const totalTeams = numTeams + 1; // Přidat další tým
+        const teams = Array.from({ length: totalTeams }, (v, i) => i + 1);
+        const numRounds = totalTeams - 1;
+        const matchesPerRound = totalTeams / 2;
+    
+        const schedule = [];
+    
+        for (let round = 0; round < numRounds; round++) {
+            for (let match = 0; match < matchesPerRound; match++) {
+                const homeTeam = teams[match];
+                const awayTeam = teams[totalTeams - 1 - match];
+        
+                // Přeskočit zápasy, kde se losový tým utká sám se sebou
+                if (homeTeam !== totalTeams && awayTeam !== totalTeams) {
+                schedule.push([homeTeam, awayTeam]);
+            }
+        }
+    
+        teams.splice(1, 0, teams.pop());
+        }
+    
+        return schedule; 
+    } else {
+            const teams = Array.from({ length: numTeams }, (v, i) => i + 1);
+            const numRounds = numTeams - 1;
+            const matchesPerRound = numTeams / 2;
+          
+            const schedule = [];
+          
+            for (let round = 0; round < numRounds; round++) {
+              for (let match = 0; match < matchesPerRound; match++) {
+                const homeTeam = teams[match];
+                const awayTeam = teams[numTeams - 1 - match];
+          
+                schedule.push([homeTeam, awayTeam]);
+              }
+          
+              teams.splice(1, 0, teams.pop());
+            }
+          
+            return schedule;
     }
-  
-    const teams = Array.from({ length: numTeams }, (v, i) => i + 1);
-    const numRounds = numTeams - 1;
-    const matchesPerRound = numTeams / 2;
-  
-    const schedule = [];
-  
-    for (let round = 0; round < numRounds; round++) {
-      for (let match = 0; match < matchesPerRound; match++) {
-        const homeTeam = teams[match];
-        const awayTeam = teams[numTeams - 1 - match];//wefqwef
-  
-        schedule.push([homeTeam, awayTeam]);
-      }
-  
-      teams.splice(1, 0, teams.pop());
-    }
-  
-    return schedule;
-  }
+}
   
 var Team = function(id, teamName, playerOneName, playerTwoName){
     
@@ -137,7 +158,7 @@ var Match = function(matchId, teams, scores){
 
 var MatchNowTeams = function(matchId){
     let matchesTeams = generateMatchesList(teamsCount);
-    
+
     console.log(matchesTeams);
     return matchesTeams[matchId-1];
 }
